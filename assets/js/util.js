@@ -432,87 +432,87 @@
 
 		// Events.
 			$this
-				.on('submit', function() {
+			.on('submit', function() {
 
-					$this.find('input[type=text],input[type=password],textarea')
-						.each(function(event) {
+				$this.find('input[type=text],input[type=password],textarea')
+					.each(function(event) {
 
-							var i = $(this);
+						var i = $(this);
 
-							if (i.attr('name').match(/-polyfill-field$/))
-								i.attr('name', '');
+						if (i.attr('name').match(/-polyfill-field$/))
+							i.attr('name', '');
 
-							if (i.val() == i.attr('placeholder')) {
-
-								i.removeClass('polyfill-placeholder');
-								i.val('');
-
-							}
-
-						});
-
-				})
-				.on('reset', function(event) {
-
-					event.preventDefault();
-
-					$this.find('select')
-						.val($('option:first').val());
-
-					$this.find('input,textarea')
-						.each(function() {
-
-							var i = $(this),
-								x;
+						if (i.val() == i.attr('placeholder')) {
 
 							i.removeClass('polyfill-placeholder');
+							i.val('');
 
-							switch (this.type) {
+						}
 
-								case 'submit':
-								case 'reset':
-									break;
+					});
 
-								case 'password':
-									i.val(i.attr('defaultValue'));
+			})
+			.on('reset', function(event) {
 
-									x = i.parent().find('input[name=' + i.attr('name') + '-polyfill-field]');
+				event.preventDefault();
 
-									if (i.val() == '') {
-										i.hide();
-										x.show();
-									}
-									else {
-										i.show();
-										x.hide();
-									}
+				$this.find('select')
+					.val($('option:first').val());
 
-									break;
+				$this.find('input,textarea')
+					.each(function() {
 
-								case 'checkbox':
-								case 'radio':
-									i.attr('checked', i.attr('defaultValue'));
-									break;
+						var i = $(this),
+							x;
 
-								case 'text':
-								case 'textarea':
-									i.val(i.attr('defaultValue'));
+						i.removeClass('polyfill-placeholder');
 
-									if (i.val() == '') {
-										i.addClass('polyfill-placeholder');
-										i.val(i.attr('placeholder'));
-									}
+						switch (this.type) {
 
-									break;
+							case 'submit':
+							case 'reset':
+								break;
 
-								default:
-									i.val(i.attr('defaultValue'));
-									break;
+							case 'password':
+								i.val(i.attr('defaultValue'));
 
-							}
-						});
+								x = i.parent().find('input[name=' + i.attr('name') + '-polyfill-field]');
 
-				});
+								if (i.val() == '') {
+									i.hide();
+									x.show();
+								}
+								else {
+									i.show();
+									x.hide();
+								}
+
+								break;
+
+							case 'checkbox':
+							case 'radio':
+								i.attr('checked', i.attr('defaultValue'));
+								break;
+
+							case 'text':
+							case 'textarea':
+								i.val(i.attr('defaultValue'));
+
+								if (i.val() == '') {
+									i.addClass('polyfill-placeholder');
+									i.val(i.attr('placeholder'));
+								}
+
+								break;
+
+							default:
+								i.val(i.attr('defaultValue'));
+								break;
+
+						}
+					});
+
+			});
 
 		return $this;
 
